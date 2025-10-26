@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>VERVE 2K25 - Registrations</title>
+    <style>
+        /* NEW FONT IMPORTS */
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@400;700&display=swap');
+
+        :root {
+            --neon-blue: #00ffff;
+            --neon-pink: #ff00ff;
+            --neon-purple: #a020f0;
+            --neon-green: #39ff14;
+            --neon-yellow: #fff000;
+            --dark-bg: #050505;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: radial-gradient(circle at center, #000 0%, #050505 100%);
+            font-family: 'Roboto Condensed', sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 30px 20px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        /* Neon Particle Background */
+        canvas#neon-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: radial-gradient(circle at center, #060606, #000);
+        }
+
+        /* --- WATERMARK LOGO --- */
+        .watermark-logo {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            opacity: 0.12;
+            z-index: -2;
+            pointer-events: none;
+            filter: drop-shadow(0 0 25px var(--neon-pink)) drop-shadow(0 0 40px var(--neon-blue));
+            animation: glowPulseWatermark 4s infinite alternate;
+        }
+
+        @keyframes glowPulseWatermark {
+
+            0%,
+            100% {
+                filter: drop-shadow(0 0 25px var(--neon-pink)) drop-shadow(0 0 40px var(--neon-blue));
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                filter: drop-shadow(0 0 40px var(--neon-blue)) drop-shadow(0 0 60px var(--neon-pink));
+                transform: translate(-50%, -50%) scale(1.02);
+            }
+        }
+
+        /* --- FLOATING THEME ELEMENTS --- */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            font-size: 5vw;
+            opacity: 0.25;
+            transition: opacity 0.5s;
+        }
+
+        /* Specific positioning and glow for each element */
+        #mic {
+            top: 15%;
+            left: 5%;
+            color: var(--neon-pink);
+            text-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+            transform: rotate(-15deg);
+        }
+
+        #mask {
+            top: 10%;
+            right: 10%;
+            font-size: 7vw;
+            color: var(--neon-purple);
+            text-shadow: 0 0 15px var(--neon-purple), 0 0 30px var(--neon-purple);
+            transform: rotate(5deg);
+        }
+
+        #shoes {
+            bottom: 25%;
+            left: 2%;
+            color: var(--neon-yellow);
+            text-shadow: 0 0 15px var(--neon-yellow), 0 0 30px var(--neon-yellow);
+            transform: rotate(10deg);
+        }
+
+        #spotlight {
+            bottom: 10%;
+            right: 5%;
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue);
+            transform: rotate(-30deg);
+        }
+
+        /* --- END FLOATING THEME ELEMENTS --- */
+
+        header {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        /* New style for descriptive text */
+        header p {
+            color: var(--neon-green);
+            text-shadow: 0 0 5px var(--neon-green);
+            font-size: 1.15rem;
+            margin-top: 5px;
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 6rem;
+            line-height: 0.9;
+            color: var(--neon-blue);
+            text-shadow: 0 0 15px var(--neon-blue), 0 0 40px var(--neon-blue);
+            margin-bottom: 0;
+            letter-spacing: 7px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0 40px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 2px solid var(--neon-purple);
+            color: var(--neon-green);
+            padding: 12px 28px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: 'Roboto Condensed', sans-serif;
+            transition: all 0.3s;
+            text-shadow: 0 0 10px var(--neon-green);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .tab-btn:hover,
+        .tab-btn.active {
+            background: var(--neon-purple);
+            box-shadow: 0 0 25px var(--neon-purple), 0 0 60px var(--neon-blue);
+            transform: scale(1.05);
+        }
+
+        .card {
+            width: 90%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            z-index: 10;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .iframe-wrap {
+            width: 100%;
+            height: 62vh;
+            border: 2px solid var(--neon-green);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 25px var(--neon-green);
+        }
+
+        footer {
+            margin-top: 50px;
+            color: #999;
+            text-shadow: 0 0 10px var(--neon-blue);
+            padding-bottom: 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="neon-bg"></canvas>
+
+    <img src="C:\Users\sudha\Downloads\1000045270-removebg-preview.png" alt="VERVE 2K25 Logo Watermark"
+        class="watermark-logo">
+
+    <div class="floating-elements">
+        <span class="floating-element" id="mic">🎤</span>
+        <span class="floating-element" id="mask">🎭</span>
+        <span class="floating-element" id="shoes">🩰</span>
+        <span class="floating-element" id="spotlight">💡</span>
+    </div>
+
+    <header>
+        <h1>VERVE <span style="color:var(--neon-pink)">2K25</span></h1>
+        <p>FAN THE SPARK IN YOU ✨<br> Register for Music, Dance & Unique Talents!</p>
+    </header>
+
+    <div class="controls">
+        <button class="tab-btn active" data-target="music">🎵 Music</button>
+        <button class="tab-btn" data-target="dance">💃 Dance</button>
+        <button class="tab-btn" data-target="talent">🌟 Unique Talents</button>
+    </div>
+
+    <div class="card">
+        <section id="music" class="section active">
+            <div class="iframe-wrap">
+                <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLScCMMJWj3cFqagvztel4GkFN0hmIcciut_UvN1PoAQOoyqbZg/viewform?embedded=true"
+                    width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </section>
+
+        <section id="dance" class="section">
+            <div class="iframe-wrap">
+                <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSeClJjsFq6Ab04XPKv-8ik8ZdHN77SZ-4tAjQXARHPwplQy0g/viewform?embedded=true"
+                    width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </section>
+
+        <section id="talent" class="section">
+            <div class="iframe-wrap">
+                <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSfwcUcW1QSqkwc5kdKZqRi1iwZHIBCfs-uE0SwaENREGpyjiQ/viewform?embedded=true"
+                    width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+            </div>
+        </section>
+    </div>
+
+    <footer>© 2025 VERVE 2K25 | Neon Energy. All Rights Reserved.</footer>
+
+    <script>
+        // Tab Switching
+        const buttons = document.querySelectorAll('.tab-btn');
+        const sections = document.querySelectorAll('.section');
+        buttons.forEach(btn => btn.addEventListener('click', () => {
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const target = btn.dataset.target;
+            sections.forEach(s => s.classList.toggle('active', s.id === target));
+        }));
+
+        // Neon Particle Animation
+        const canvas = document.getElementById('neon-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        for (let i = 0; i < 120; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 2 + 0.5,
+                dx: (Math.random() - 0.5) * 0.6,
+                dy: (Math.random() - 0.5) * 0.6,
+                color: `hsl(${Math.random() * 360}, 100%, 60%)`
+            });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 10;
+                ctx.shadowColor = p.color;
+                ctx.fill();
+                p.x += p.dx;
+                p.y += p.dy;
+
+                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+
+</html>
