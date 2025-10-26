@@ -5,10 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>VERVE 2K25 - Registrations</title>
-    <style>
-        /* NEW FONT IMPORTS */
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:wght@400;700&display=swap');
+    <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
+    <style>
         :root {
             --neon-blue: #00ffff;
             --neon-pink: #ff00ff;
@@ -22,7 +23,7 @@
             margin: 0;
             min-height: 100vh;
             background: radial-gradient(circle at center, #000 0%, #050505 100%);
-            font-family: 'Roboto Condensed', sans-serif;
+            font-family: 'Space Mono', monospace;
             color: white;
             display: flex;
             flex-direction: column;
@@ -132,105 +133,171 @@
             align-items: center;
             flex-direction: column;
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
-        /* New style for descriptive text */
-        header p {
+        /* Styling for the dynamic text line */
+        .dynamic-line {
+            font-size: 1.5rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+        
+        /* College event details styling */
+        .college-description {
+            max-width: 650px;
+            margin: 15px 0;
+            font-size: 1rem;
+            color: #ccc;
+            border-top: 1px dashed rgba(0, 255, 255, 0.5);
+            border-bottom: 1px dashed rgba(0, 255, 255, 0.5);
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .college-description p {
+            margin: 5px 0;
+        }
+
+        .college-description strong {
+            color: var(--neon-yellow);
+            text-shadow: 0 0 8px var(--neon-yellow);
+            font-weight: 700;
+        }
+        
+        /* Updated style for descriptive text */
+        header p.tagline {
             color: var(--neon-green);
             text-shadow: 0 0 5px var(--neon-green);
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             margin-top: 5px;
+            font-weight: 700;
         }
 
         h1 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 6rem;
+            /* Using Michroma for the main title */
+            font-family: 'Michroma', sans-serif;
+            font-size: 4rem; 
             line-height: 0.9;
             color: var(--neon-blue);
             text-shadow: 0 0 15px var(--neon-blue), 0 0 40px var(--neon-blue);
             margin-bottom: 0;
-            letter-spacing: 7px;
+            letter-spacing: 5px;
         }
-
-        .controls {
-            display: flex;
-            gap: 30px;
-            margin: 20px 0 40px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .tab-btn {
-            background: transparent;
-            border: 2px solid var(--neon-purple);
-            color: var(--neon-green);
-            padding: 12px 28px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-family: 'Roboto Condensed', sans-serif;
-            transition: all 0.3s;
-            text-shadow: 0 0 10px var(--neon-green);
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .tab-btn:hover,
-        .tab-btn.active {
-            background: var(--neon-purple);
-            box-shadow: 0 0 25px var(--neon-purple), 0 0 60px var(--neon-blue);
-            transform: scale(1.05);
-        }
-
-        .card {
+        
+        .content-area {
             width: 90%;
-            max-width: 800px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            border: 2px solid var(--neon-blue);
-            box-shadow: 0 0 40px rgba(0, 255, 255, 0.4);
-            backdrop-filter: blur(10px);
-            padding: 25px;
+            max-width: 900px; 
+            padding: 25px 0;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-            animation: fadeIn 0.6s ease;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .iframe-wrap {
+        /* --- CARD GRID STYLES (3 COLUMNS) --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Optimized for 3 cards */
+            gap: 25px;
             width: 100%;
-            height: 62vh;
-            border: 2px solid var(--neon-green);
+            margin-top: 20px;
+        }
+
+        .event-card {
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--neon-purple);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 0 25px var(--neon-green);
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+            cursor: pointer;
         }
 
+        .event-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--neon-blue);
+            box-shadow: 0 5px 30px rgba(0, 255, 255, 0.6);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 180px; /* Restored image height for 3 cards */
+            object-fit: cover;
+            border-bottom: 2px solid var(--neon-purple);
+            transition: all 0.3s;
+        }
+
+        .event-card:hover .card-image {
+            filter: saturate(1.5) brightness(1.1);
+        }
+
+        .card-title {
+            font-family: 'Michroma', sans-serif;
+            font-size: 1.2rem;
+            padding: 15px 10px;
+            letter-spacing: 1px;
+            color: var(--neon-green);
+            text-shadow: 0 0 8px var(--neon-green);
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* --- FOOTER STYLES --- */
         footer {
             margin-top: 50px;
             color: #999;
-            text-shadow: 0 0 10px var(--neon-blue);
             padding-bottom: 20px;
             font-size: 0.9rem;
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+
+        .footer-social-contact {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px 40px;
+            margin-bottom: 15px;
+        }
+
+        .footer-social-contact a {
+            text-decoration: none;
+        }
+
+        .contact-detail {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--neon-blue);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        /* Instagram Link Styling */
+        .insta-link {
+            color: var(--neon-pink);
+            text-shadow: 0 0 15px var(--neon-pink);
+            font-size: 2.5rem;
+            transition: transform 0.2s;
+            margin-right: 15px;
+        }
+
+        .insta-link:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -238,8 +305,7 @@
 <body>
     <canvas id="neon-bg"></canvas>
 
-    <img src="https://github.com/varun29sharma/Verve-2K25-registrations/blob/353748b7c4c2e429bfa132dc4e49ccf7ece00336/1000045270-removebg-preview.png" alt="VERVE 2K25 Logo Watermark"
-        class="watermark-logo">
+    <img src="https://raw.githubusercontent.com/varun29sharma/Verve-2K25-registrations/main/1000045270-removebg-preview.jpg" alt="VERVE 2K25 Logo Watermark" class="watermark-logo">
 
     <div class="floating-elements">
         <span class="floating-element" id="mic">🎤</span>
@@ -250,55 +316,82 @@
 
     <header>
         <h1>VERVE <span style="color:var(--neon-pink)">2K25</span></h1>
-        <p>FAN THE SPARK IN YOU ✨<br> Register for Music, Dance & Unique Talents!</p>
+        
+        <div class="dynamic-line">
+            THE <span id="dynamic-word">AWAITED</span> FRESHER'S OF VASAVI
+        </div>
+        
+        <p class="tagline">Ignite the Stage. Unleash Your Energy.</p>
+        
+        <div class="college-description">
+            <p style="color:var(--neon-green); font-size:1.1rem; text-shadow:0 0 5px var(--neon-green);">**VERVE 2K25** is the official annual **freshers' event at Vasavi College of Engineering**, exclusively for first-year students.</p>
+            <p>Organized by last year's title holders, **Verve 2025** will feature a variety of competitions where the most enthusiastic first-years will compete for several titles.</p>
+            <p>First-year students can participate in **one or more events**, but only the best performers will be honored with their respective titles.</p>
+            <p style="margin-top: 10px; color: var(--neon-yellow);">**EVENT DATES & TIMINGS:**</p>
+            <p>Verve 2025 will take place from **October 28th to November 4th**, between **4:30 PM and 6:30 PM** each day. Additional buses will be available at **6:30 PM** throughout the week.</p>
+        </div>
     </header>
 
-    <div class="controls">
-        <button class="tab-btn active" data-target="music">🎵 Music</button>
-        <button class="tab-btn" data-target="dance">💃 Dance</button>
-        <button class="tab-btn" data-target="talent">🌟 Unique Talents</button>
+    <div class="content-area">
+        <p style="font-size: 1.5rem; color: var(--neon-yellow); margin-bottom: 25px; text-shadow: 0 0 10px var(--neon-yellow);">Choose your event to register:</p>
+        
+        <div class="card-grid">
+            
+            <a class="event-card" href="https://docs.google.com/forms/d/e/1FAIpQLScCMMJWj3cFqagvztel4GkFN0hmIcciut_UvN1PoAQOoyqbZg/viewform" target="_blank">
+                <img class="card-image" src="https://raw.githubusercontent.com/[YOUR_USERNAME]/[YOUR_REPO]/main/[MUSIC_IMAGE_FILENAME].jpg" alt="Music Event">
+                <div class="card-title">🎵 MUSIC</div>
+            </a>
+            
+            <a class="event-card" href="https://docs.google.com/forms/d/e/1FAIpQLSeClJjsFq6Ab04XPKv-8ik8ZdHN77SZ-4tAjQXARHPwplQy0g/viewform" target="_blank">
+                <img class="card-image" src="https://raw.githubusercontent.com/[YOUR_USERNAME]/[YOUR_REPO]/main/[DANCE_IMAGE_FILENAME].jpg" alt="Dance Event">
+                <div class="card-title">💃 DANCE</div>
+            </a>
+            
+            <a class="event-card" href="https://docs.google.com/forms/d/e/1FAIpQLSfwcUcW1QSqkwc5kdKZqRi1iwZHIBCfs-uE0SwaENREGpyjiQ/viewform" target="_blank">
+                <img class="card-image" src="https://raw.githubusercontent.com/[YOUR_USERNAME]/[YOUR_REPO]/main/[TALENT_IMAGE_FILENAME].jpg" alt="Unique Talents Event">
+                <div class="card-title">🌟 UNIQUE TALENTS</div>
+            </a>
+
+        </div>
     </div>
 
-    <div class="card">
-        <section id="music" class="section active">
-            <div class="iframe-wrap">
-                <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLScCMMJWj3cFqagvztel4GkFN0hmIcciut_UvN1PoAQOoyqbZg/viewform?embedded=true"
-                    width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            </div>
-        </section>
 
-        <section id="dance" class="section">
-            <div class="iframe-wrap">
-                <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSeClJjsFq6Ab04XPKv-8ik8ZdHN77SZ-4tAjQXARHPwplQy0g/viewform?embedded=true"
-                    width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            </div>
-        </section>
+    <footer>
+        <div class="footer-social-contact">
+            <a href="https://instagram.com/vce_verve" target="_blank" class="insta-link" aria-label="Follow us on Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
 
-        <section id="talent" class="section">
-            <div class="iframe-wrap">
-                <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSfwcUcW1QSqkwc5kdKZqRi1iwZHIBCfs-uE0SwaENREGpyjiQ/viewform?embedded=true"
-                    width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            </div>
-        </section>
-    </div>
-
-    <footer>© 2025 VERVE 2K25 | Neon Energy. All Rights Reserved.</footer>
-
+            <p class="contact-detail">
+                Varun: <a href="tel:9889270310" style="color:var(--neon-pink); text-decoration:none;">9889270310</a>
+            </p>
+            <p class="contact-detail">
+                Harshika: <a href="tel:8121524888" style="color:var(--neon-pink); text-decoration:none;">8121524888</a>
+            </p>
+        </div>
+        <span>© 2025 VERVE 2K25 | Neon Energy. All Rights Reserved.</span>
+    </footer>
+    
     <script>
-        // Tab Switching
-        const buttons = document.querySelectorAll('.tab-btn');
-        const sections = document.querySelectorAll('.section');
-        buttons.forEach(btn => btn.addEventListener('click', () => {
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const target = btn.dataset.target;
-            sections.forEach(s => s.classList.toggle('active', s.id === target));
-        }));
+        // --- Dynamic Text Script ---
+        const words = ["AWAITED", "WANTED", "EXCITING", "ENERGETIC", "AMAZING"];
+        let wordIndex = 0;
+        const dynamicWordElement = document.getElementById('dynamic-word');
 
-        // Neon Particle Animation
+        function updateDynamicWord() {
+            dynamicWordElement.style.opacity = 0; 
+            setTimeout(() => {
+                dynamicWordElement.textContent = words[wordIndex];
+                dynamicWordElement.style.opacity = 1;
+                wordIndex = (wordIndex + 1) % words.length;
+            }, 300); 
+        }
+
+        updateDynamicWord();
+        setInterval(updateDynamicWord, 2000); 
+
+
+        // --- Neon Particle Animation (kept for aesthetics) ---
         const canvas = document.getElementById('neon-bg');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -342,8 +435,4 @@
     </script>
 </body>
 
-
 </html>
-
-
-
