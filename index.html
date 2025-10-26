@@ -229,12 +229,22 @@
             box-shadow: 0 5px 30px rgba(0, 255, 255, 0.6);
         }
 
-        /* Removed .card-image styling as per user request */
+        .card-image {
+            width: 100%;
+            height: 180px; 
+            object-fit: cover;
+            border-bottom: 2px solid var(--neon-purple);
+            transition: all 0.3s;
+        }
+
+        .event-card:hover .card-image {
+            filter: saturate(1.5) brightness(1.1);
+        }
 
         .card-title {
             font-family: 'Michroma', sans-serif;
             font-size: 1.2rem;
-            padding: 30px 20px; /* Increased padding to make the text box larger */
+            padding: 15px 10px;
             letter-spacing: 1px;
             color: var(--neon-green);
             text-shadow: 0 0 8px var(--neon-green);
@@ -426,3 +436,8 @@
 </body>
 
 </html>
+
+
+
+
+remove the image part from music dance and unique talent i just want the text box saying musci dance unique talents to redirect them to the google form
